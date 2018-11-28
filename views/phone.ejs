@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/commen.css">
+    <link rel="stylesheet" href="/css/project.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+    <%- include('./commen/head') %>
+    <div class="menu">
+        <%- include('./commen/menu') %>
+        <div class="menu-right">
+            <div class="cicleHead">
+                <div class="cicle menu-form">
+                    新增手机
+                </div>
+            </div>
+            <table class="table table-striped table-bordered table-hover menu-table">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>图片</th>
+                        <th>手机名称</th>
+                        <th>所属品牌</th>
+                        <th>官方指导价</th>
+                        <th>二手回收价</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody class="tbodyAdd">
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>Otto</td>
+                        <td>@mdo</td>
+                        <td>Mark</td>
+                        <td>@mdo</td>
+                        <td>
+                            <input type="button" class="cicle modify" value="修改" />
+                            <input type="button" class="cicle del" value="删除" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Jacob</td>
+                        <td>Thornton</td>
+                        <td>@fat</td>
+                        <td>Mark</td>
+                        <td>@mdo</td>
+                        <td>
+                            <input type="button" class="cicle modify" value="修改" />
+                            <input type="button" class="cicle del" value="删除" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Larry</td>
+                        <td>the Bird</td>
+                        <td>@twitter</td>
+                        <td>Mark</td>
+                        <td>@mdo</td>
+                        <td>
+                            <input type="button" class="cicle modify" value="修改" />
+                            <input type="button" class="cicle del" value="删除" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="addList">
+                <h1>新增</h1>
+                <label>
+                    手机名称: <input type="text" id="phone">
+                </label>
+                <label>
+                    所属品牌: <input type="text" id="logo">
+                </label>
+                <label>
+                    官方指导价: <input type="text" id="price">
+                </label>
+                <label>
+                    二手回收价: <input type="text" id="recycle">
+                </label>
+                <label>
+                        图片: <input type="file" id="img">
+                </label>
+                <label>
+                    <button class="makeTrue">确定</button>
+                    <button class="addNew">添加</button>
+                    <button class="resetNew">重置</button>
+                    <button class="cancel">取消</button>
+                    
+                </label>
+            </div>
+            <nav class="menu-nav">
+                <ul class="pagination menunav-li">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <%- include('./commen/foot') %>
+
+    <script src="/js/jquery.js"></script>
+    <script src="/js/phone.js"></script>
+</body>
+
+</html>

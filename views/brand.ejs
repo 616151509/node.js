@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/commen.css">
+    <link rel="stylesheet" href="/css/project.css">
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+    <%- include('./commen/head') %>
+    <div class="menu">
+        <%- include('./commen/menu') %>
+        <div class="menu-right">
+            <div class="cicleHead">
+                <div class="cicle menu-form">
+                    新增品牌
+                </div>
+            </div>
+            <table class="table table-striped table-bordered table-hover menu-table">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>品牌LOGO</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Mark</td>
+                        <td>
+                            <input type="button" class="cicle" value="修改"/>
+                            <input type="button" class="cicle" value="删除"/>
+                        </td>
+                    </tr>
+                </tbody>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>
+                            <input type="button" class="cicle" value="修改"/>
+                            <input type="button" class="cicle" value="删除"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>
+                            <input type="button" class="cicle" value="修改"/>
+                            <input type="button" class="cicle" value="删除"/>
+                    </td>
+                </tr>
+            </table>
+            <nav class="menu-nav">
+                <ul class="pagination menunav-li">
+                    <li>
+                        <a href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="active"><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li>
+                        <a href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <%- include('./commen/foot') %>
+</body>
+
+</html>
