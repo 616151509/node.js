@@ -4,10 +4,13 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
+var multer = require('multer');
+// var bodyParser = require('body-parser');
 
+var phoneRouter = require('./routes/phone');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var ignoreRouter = require('./config/ignoreRouter.js')
+var ignoreRouter = require('./config/ignoreRouter')
 
 var app = express();
 
@@ -34,9 +37,9 @@ app.use(function(req,res,next){
     // 如果 nickname 不存在，就跳转到 登录页面。
     res.redirect('/login');
   }
- 
 })
 
+app.use('/phone',phoneRouter)
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

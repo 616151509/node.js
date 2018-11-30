@@ -34,71 +34,50 @@
                     </tr>
                 </thead>
                 <tbody class="tbodyAdd">
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>Mark</td>
-                        <td>@mdo</td>
-                        <td>
-                            <input type="button" class="cicle modify" value="修改" />
-                            <input type="button" class="cicle del" value="删除" />
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                        <td>Mark</td>
-                        <td>@mdo</td>
-                        <td>
-                            <input type="button" class="cicle modify" value="修改" />
-                            <input type="button" class="cicle del" value="删除" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                        <td>Mark</td>
-                        <td>@mdo</td>
-                        <td>
-                            <input type="button" class="cicle modify" value="修改" />
-                            <input type="button" class="cicle del" value="删除" />
-                        </td>
-                    </tr>
+                    <% for(var i = 0; i < list.length; i++) {%>
+                        <tr>
+                                <th scope="row"><%= i+1 %></th>
+                                <td>
+                                    <img class="likeSmall" src="/<%= list[i].fileName %>" alt="">
+                                    <!-- <span><%= list[i].phoneName %></span> -->
+                                </td>
+                                <td><%= list[i].username %></td>
+                                <td><%= list[i].logo %></td>
+                                <td><%= list[i].price %></td>
+                                <td><%= list[i].recycle %></td>
+                                <td>
+                                    <a href="#" class="cicle">修改</a>
+                                    <a class="cicle" href="/phone/delet?id=<%= list[i]._id %>">删除</a>
+                                </td>
+                        </tr>
+                    <%}%>
                 </tbody>
             </table>
-            <div class="addList">
+            <form class="addList" method="post" action="/phone/phoneAdd" enctype="multipart/form-data">
                 <h1>新增</h1>
                 <label>
-                    手机名称: <input type="text" id="phone">
+                    图片: <input type="file" name="file" id="img">
+                          <!-- <input type="text" name="phoneName"> -->
                 </label>
                 <label>
-                    所属品牌: <input type="text" id="logo">
+                    手机名称: <input type="text" id="phone" name="usm">
                 </label>
                 <label>
-                    官方指导价: <input type="text" id="price">
+                    所属品牌: <input type="text" id="logo" name="logo">
                 </label>
                 <label>
-                    二手回收价: <input type="text" id="recycle">
+                    官方指导价: <input type="text" id="price" name="price">
                 </label>
                 <label>
-                        图片: <input type="file" id="img">
+                    二手回收价: <input type="text" id="recycle" name="recycle">
                 </label>
                 <label>
-                    <button class="makeTrue">确定</button>
                     <button class="addNew">添加</button>
-                    <button class="resetNew">重置</button>
-                    <button class="cancel">取消</button>
                     
                 </label>
-            </div>
-            <nav class="menu-nav">
+                <a class="cancel cicle">取消</a>
+             </form>
+            <!-- <nav class="menu-nav">
                 <ul class="pagination menunav-li">
                     <li>
                         <a href="#" aria-label="Previous">
@@ -116,7 +95,24 @@
                         </a>
                     </li>
                 </ul>
-            </nav>
+            </nav> -->
+                <nav class="menu-nav">
+                    <ul class="pagination menunav-li">
+                        <li>
+                            <a href="/phone?page=<%= currentPage - 1 < 1 ? 1: currentPage - 1 %>&pageSize=<%= pageSize %>" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <% for (var i=0;i<totalPage;i++) {%>
+                            <li class="<%= currentPage === (i+1) ? 'active': '' %>"><a href="/phone?page=<%= i+1 %>&pageSize=<%= pageSize %>"><%= i + 1%></a></li>
+                        <%}%>
+                        <li>
+                            <a href="/phone?page=<%= currentPage + 1>totalPage ? totalPage:currentPage + 1 %>&pageSize=<%= pageSize %>" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
         </div>
     </div>
     <%- include('./commen/foot') %>
