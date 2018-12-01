@@ -189,3 +189,19 @@ label{
     width: 50px;
     height: 48px;
 }
+.modifyMenu{
+    display: none;
+    background: darkorange;
+    position: absolute;
+    left:40%;
+    padding:30px;
+}
+.modifyMenu-true{
+    display: inline-block;
+    padding: 4px;
+    background: papayawhip;
+    border-radius:2px; 
+}
+.userName{
+    visibility: hidden;
+}

@@ -26,50 +26,51 @@
                     <tr>
                         <th>序号</th>
                         <th>品牌LOGO</th>
-                        <th>操作</th>
+                        <th>品牌名称</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>
-                            <input type="button" class="cicle" value="修改"/>
-                            <input type="button" class="cicle" value="删除"/>
-                        </td>
-                    </tr>
+                    
+                    <% for(var i = 0; i < list.length; i++) {%>
+                        <tr>
+                                <th scope="row"><%= i+1 %></th>
+                                <td>
+                                    <img class="likeSmall" src="/<%= list[i].fileName %>" alt="">
+                                </td>
+                                <td><%= list[i].logo %></td>
+                                <td>
+                                    <a href="#" class="cicle">修改</a>
+                                    <a class="cicle" href="/brand/delet?id=<%= list[i]._id %>">删除</a>
+                                </td>
+                        </tr>
+                    <%}%>
                 </tbody>
-                <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>
-                            <input type="button" class="cicle" value="修改"/>
-                            <input type="button" class="cicle" value="删除"/>
-                    </td>
-                </tr>
-                <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>
-                            <input type="button" class="cicle" value="修改"/>
-                            <input type="button" class="cicle" value="删除"/>
-                    </td>
-                </tr>
             </table>
-            <nav class="menu-nav">
+            <form class="addList" method="post" action="/brand/brandAdd" enctype="multipart/form-data">
+                <h1>新增</h1>
+                <label>
+                    图片: <input type="file" name="file" id="img">
+                </label>
+                <label>
+                    所属品牌: <input type="text" id="logo" name="logo">
+                </label>
+                <label>
+                    <button class="addNew">添加</button>
+                </label>
+                <a class="cancel cicle">取消</a>
+             </form>
+             <nav class="menu-nav">
                 <ul class="pagination menunav-li">
                     <li>
-                        <a href="#" aria-label="Previous">
+                        <a href="/brand?page=<%= currentPage - 1 < 1 ? 1: currentPage - 1 %>&pageSize=<%= pageSize %>" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
+                    <% for (var i=0;i<totalPage;i++) {%>
+                        <li class="<%= currentPage === (i+1) ? 'active': '' %>"><a href="/brand?page=<%= i+1 %>&pageSize=<%= pageSize %>"><%= i + 1%></a></li>
+                    <%}%>
                     <li>
-                        <a href="#" aria-label="Next">
+                        <a href="/brand?page=<%= currentPage + 1>totalPage ? totalPage:currentPage + 1 %>&pageSize=<%= pageSize %>" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -78,6 +79,8 @@
         </div>
     </div>
     <%- include('./commen/foot') %>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/brand.js"></script>
 </body>
 
 </html>

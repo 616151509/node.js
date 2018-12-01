@@ -12,6 +12,7 @@ var upload = multer({dest: 'C:/tmp'});
 
 //分页跳转
 router.get('/', function (req, res) {
+    console.log(1)
     var pageSize = parseInt(req.query.pageSize) || 5;//每一页显示的条数
     var page = parseInt(req.query.page) || 1;//第几页
     var totalSize = '';//数据总条数
@@ -29,7 +30,7 @@ router.get('/', function (req, res) {
       var db = client.db('user')
       async.series([
         function(cb) {
-          db.collection('phone').find().count(function(err, num) {
+          db.collection('brand').find().count(function(err, num) {
             if (err) {
               cb(err);
             } else {
@@ -40,7 +41,7 @@ router.get('/', function (req, res) {
           })
         },
         function(cb) {
-          db.collection('phone').find().limit(pageSize).skip(page * pageSize - pageSize).toArray(function(err, data) {
+          db.collection('brand').find().limit(pageSize).skip(page * pageSize - pageSize).toArray(function(err, data) {
             if (err) {
               cb(err)
             } else {
@@ -57,7 +58,7 @@ router.get('/', function (req, res) {
           })
         } else {
           var totalPage = Math.ceil(totalSize / pageSize); // 总页数
-          res.render('phone', {
+          res.render('brand', {
             list: results[1],
             totalPage: totalPage,
             pageSize: pageSize,
@@ -68,7 +69,7 @@ router.get('/', function (req, res) {
     })
   })
 //新增
-router.post('/phoneAdd', upload.single('file'),function (req, res) {
+router.post('/brandAdd', upload.single('file'),function (req, res) {
     var file = req.file
     if (!file) {
         res.render('error', {
@@ -79,37 +80,12 @@ router.post('/phoneAdd', upload.single('file'),function (req, res) {
       }
     var filename = 'phoneImg/' + new Date().getTime() + '_' + req.file.originalname;
     var newFileName = path.resolve(__dirname, '../public/', filename);
-    var usm = req.body.usm;
     var logo = req.body.logo;
-    var price = req.body.price;
-    var recycle = req.body.recycle;
-    // var phoneName = req.body.phoneName
     fs.renameSync(req.file.path,newFileName)
-    if (!usm) {
-      res.render('error', {
-        message: '手机名不能为空',
-        error: new Error('手机名不能为空')
-      })
-      return;
-    }
     if (!logo) {
       res.render('error', {
-        message: 'logo不能为空',
-        error: new Error('logo不能为空')
-      })
-      return;
-    }
-    if (!price) {
-      res.render('error', {
-        message: '价格不能为空',
-        error: new Error('价格不能为空')
-      })
-      return;
-    }
-    if (!recycle) {
-      res.render('error', {
-        message: '二手回收价不能为空',
-        error: new Error('二手回收价不能为空')
+        message: '品牌名字不能为空',
+        error: new Error('品牌名字不能为空')
       })
       return;
     }
@@ -126,24 +102,21 @@ router.post('/phoneAdd', upload.single('file'),function (req, res) {
       var db = client.db('user');
       async.series([
         function (cb) {
-          db.collection('phone').find({
-            username: usm
+          db.collection('brand').find({
+            logo: logo
           }).count(function (err, num) {
             if (err) {
               cb(err)
             } else if (num > 0) {
-              cb(new Error('该手机已经新增了'))
+              cb(new Error('该手机品牌已经新增了'))
             } else {
               cb(null)
             }
           })
         },
         function (cb) {
-          db.collection('phone').insertOne({
-            username: usm,
+          db.collection('brand').insertOne({
             logo:logo ,
-            price: price,
-            recycle:recycle ,
             fileName: filename
           }, function (err) {
             if (err) {
@@ -160,7 +133,7 @@ router.post('/phoneAdd', upload.single('file'),function (req, res) {
             error: err
           })
         } else {
-          res.redirect('/phone')
+          res.redirect('/brand')
         }
         client.close()
       })
@@ -181,7 +154,7 @@ router.get('/delet', function (req, res) {
       }
       var db = client.db('user');
   
-      db.collection('phone').deleteOne({
+      db.collection('brand').deleteOne({
         _id: ObjectID(id),
       }, function (err) {
         if (err) {
@@ -191,7 +164,7 @@ router.get('/delet', function (req, res) {
           })
         } else {
           console.log('删除成功')
-          res.redirect('/phone')
+          res.redirect('/brand')
         }
       })
     })

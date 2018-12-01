@@ -38,6 +38,39 @@
                         <th>操作</th>
                     </tr>
                 </thead>
+                <div class="modifyMenu">
+                    <form action="/users/modify" method="POST">
+                        <label>
+                            <input class="userName" type="text" name="user">
+                        </label>
+                            <br/>
+                        <label>
+                            密码:<input class="userPsd" type="text" name="psd">
+                        </label>
+                            <br/>
+                        <label>
+                            昵称:<input class="userNkm" type="text" name="nickname">
+                        </label>
+                            <br/>
+                        <label>
+                            性别: <input class="userSex" type="radio" name="sex" value="男">男
+                                  <input class="userSex" type="radio" name="sex" value="女">女
+                        </label>
+                            <br/> 
+                        <label>
+                            年龄:<input class="userAge" type="text" name="age">
+                        </label>
+                             <br/>
+                        <label>
+                            是否管理员:<input class="userAdmin" type="radio" name="isAdmin" value="是">yes <input class="userAdmin" type="radio" name="isAdmin" value="否">no
+                        </label>
+                        <div>
+                            <input type="submit" value="确定">
+                            <span class="modifyMenu-true">取消</s>
+                        </div>
+                    </form>
+                    
+                </div>
                 <tbody>
                     <% for(var i = 0; i < list.length; i++) {%>
                             <tr>
@@ -46,16 +79,16 @@
                                     <td><%= list[i].password %></td>
                                     <td><%= list[i].nickname %></td>
                                     <td><%= list[i].sex %></td>
-                                    <td><%= list[i].age %></td>
+                                    <td><%= list[i].age %></td> 
                                     <td><%= list[i].isAdmin %></td>
                                     <td>
-                                        <a href="#" class="cicle">修改</a>
+                                        <span class="cicle userModify">修改</span>
                                         <% if (!list[i].isAdmin) {%>
-                                            <a class="cicle" href="/users/delet?id=<%= list[i]._id %>">删除</a>
+                                            <a class="cicle" href="/users/delet?id=<%= list[i]._id %>">删除</s>
                                         <%} %>
                                     </td>
                             </tr>
-                    <%}%>
+                      <%}%>
                 </tbody>
             </table>
             <nav class="menu-nav">

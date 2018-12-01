@@ -4,9 +4,13 @@ var MongoClient = require('mongodb').MongoClient;
 var url = 'mongodb://127.0.0.1:27017'
 var async = require('async');
 var ObjectID = require('mongodb').ObjectID;
-
+router.post('/outList',function(req,res){
+  res.clearCookie('nickname')
+  res.redirect('/')
+})
 //用户页面处理 分页跳转
 router.get('/', function (req, res) {
+  console.log(res.cookie)
   var pageSize = parseInt(req.query.pageSize) || 5;//每一页显示的条数
   var page = parseInt(req.query.page) || 1;//第几页
   var totalSize = '';//数据总条数
@@ -51,7 +55,6 @@ router.get('/', function (req, res) {
         })
       } else {
         var totalPage = Math.ceil(totalSize / pageSize); // 总页数
-
         res.render('user', {
           list: results[1],
           totalPage: totalPage,
@@ -110,6 +113,7 @@ router.post('/login', function (req, res) {
           maxAge: 60 * 60 * 1000
         })
         console.log('登录成功')
+        console.log(data[0])
         res.redirect('/')
       }
       client.close();
@@ -149,6 +153,13 @@ router.post('/register', function (req, res) {
     res.render('error', {
       message: '必须填写年龄',
       error: new Error('必须填写年龄')
+    })
+    return;
+  }
+  if (!sex) {
+    res.render('error', {
+      message: '性别不能为空',
+      error: new Error('性别不能为空')
     })
     return;
   }
@@ -233,6 +244,7 @@ router.get('/delet', function (req, res) {
         console.log('删除成功')
         res.redirect('/users')
       }
+      client.close()
     })
   })
 })
@@ -280,10 +292,42 @@ router.post('/search',function(req,res){
           totalPage: 1,
           pageSize: 1,
           currentPage: 1,
+          search:1
         }) 
       }
       client.close()
     })
+  })
+})
+router.post('/modify',function(req,res){
+  var usm = req.body.user;
+  var psd = req.body.psd;
+  var nickname = req.body.nickname;
+  var sex = req.body.sex;
+  var age = parseInt(req.body.age);
+  var isAdmin = req.body.isAdmin == '是' ? true : false;
+  if (!sex) {
+    res.render('error', {
+      message: '性别不能为空',
+      error: new Error('性别不能为空')
+    })
+    return;
+  }
+  console.log(psd,nickname,sex,age,isAdmin)
+  MongoClient.connect(url, {
+    useNewUrlParser: true
+  }, function (err, client) {
+    if (err) {
+      res.render('error', {
+        message: '数据库连接失败',
+        error: err
+      });
+      return;
+    }
+    var db = client.db('user');
+    db.collection('user').update({username:usm},{$set:{password:psd,nickname:nickname,sex:sex,age:age,isAdmin:isAdmin}})
+    res.redirect('/users')
+    client.close()
   })
 })
 module.exports = router;
